@@ -1,2 +1,1 @@
 # bernico-bot
-# bernico-bot
