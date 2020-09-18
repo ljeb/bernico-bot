@@ -1,5 +1,4 @@
 import json
-import config
 from twython import Twython
 from twython import TwythonStreamer
 from os import environ
