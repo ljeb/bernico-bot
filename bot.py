@@ -18,7 +18,7 @@ class Streamer(TwythonStreamer):
         if 'text' in tweet.keys() \
             and "retweeted_status" not in tweet.keys() \
                 and not tweet["in_reply_to_status_id"] \
-                and tweet["user"]["screen_name"] == "bernicobot":
+                and tweet["user"]["screen_name"] == "nicolette_sara":
             print("text:", tweet["text"])
             reply(tweet)
 
@@ -29,7 +29,7 @@ class Streamer(TwythonStreamer):
 def stream():
     stream = Streamer(C_KEY, C_SECRET, A_TOKEN_KEY, A_TOKEN_SECRET)
     # streams tweets filtered by @nicolette_sara's twitter id
-    stream.statuses.filter(follow=["1306981968618422274"])
+    stream.statuses.filter(follow=["780603996964651009"])
 
 
 def reply(tweet):
@@ -38,7 +38,7 @@ def reply(tweet):
     twitter = Twython(C_KEY, C_SECRET, A_TOKEN_KEY, A_TOKEN_SECRET)
     video = open('women.mp4', 'rb')
     response = twitter.upload_video(media=video, media_type='video/mp4')
-    twitter.update_status(status='@bernicobot',
+    twitter.update_status(status='@nicolette_sara',
                           in_reply_to_status_id=tweet["id"],
                           media_ids=[response['media_id']])
     print("finished tweet reply")
