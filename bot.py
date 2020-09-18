@@ -2,11 +2,12 @@ import json
 import config
 from twython import Twython
 from twython import TwythonStreamer
+from os import environ
 
-C_KEY = config.C_KEY
-C_SECRET = config.C_SECRET
-A_TOKEN_KEY = config.A_TOKEN_KEY
-A_TOKEN_SECRET = config.A_TOKEN_SECRET
+C_KEY = environ['C_KEY']
+C_SECRET = environ['C_SECRET']
+A_TOKEN_KEY = environ['A_TOKEN_KEY']
+A_TOKEN_SECRET = environ['A_TOKEN_SECRET']
 
 
 class Streamer(TwythonStreamer):
@@ -18,7 +19,7 @@ class Streamer(TwythonStreamer):
         if 'text' in tweet.keys() \
             and "retweeted_status" not in tweet.keys() \
                 and not tweet["in_reply_to_status_id"] \
-                and tweet["user"]["screen_name"] == "nicolette_sara":
+                and tweet["user"]["screen_name"] == "bernicobot":
             print("text:", tweet["text"])
             reply(tweet)
 
@@ -29,7 +30,7 @@ class Streamer(TwythonStreamer):
 def stream():
     stream = Streamer(C_KEY, C_SECRET, A_TOKEN_KEY, A_TOKEN_SECRET)
     # streams tweets filtered by @nicolette_sara's twitter id
-    stream.statuses.filter(follow=["780603996964651009"])
+    stream.statuses.filter(follow=["1306981968618422274"])
 
 
 def reply(tweet):
@@ -38,7 +39,7 @@ def reply(tweet):
     twitter = Twython(C_KEY, C_SECRET, A_TOKEN_KEY, A_TOKEN_SECRET)
     video = open('women.mp4', 'rb')
     response = twitter.upload_video(media=video, media_type='video/mp4')
-    twitter.update_status(status='@nicolette_sara',
+    twitter.update_status(status='@bernicobot',
                           in_reply_to_status_id=tweet["id"],
                           media_ids=[response['media_id']])
     print("finished tweet reply")
